@@ -5,6 +5,8 @@ phases:
     commands:
       - mvn clean install
       - echo Logging in to Amazon ECR...
+      - echo Checks if the ECR exists and creaqted accordingly
+      - aws ecr describe-repositories --repository-names ${REPO_NAME} || aws ecr create-repository --repository-name ${REPO_NAME}
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
   build:
     commands:
