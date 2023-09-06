@@ -20,7 +20,7 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
-   # New step to remove the old "latest" image
-      - echo Removing the old "latest" Docker image...
-      - aws ecr batch-check-layer-availability --repository-name ${REPO_NAME} --image-id imageTag=latest
-      - aws ecr list-images --repository-name ${REPO_NAME} --query 'imageIds[?imageTag==`latest`]' --output json | jq -r '.[] | .imageDigest' | xargs -I {} aws ecr batch-delete-image --repository-name ${REPO_NAME} --image-ids imageDigest={}
+  #  # New step to remove the old "latest" image
+  #     - echo Removing the old "latest" Docker image...
+  #     - aws ecr batch-check-layer-availability --repository-name ${REPO_NAME} --image-id imageTag=latest
+  #     - aws ecr list-images --repository-name ${REPO_NAME} --query 'imageIds[?imageTag==`latest`]' --output json | jq -r '.[] | .imageDigest' | xargs -I {} aws ecr batch-delete-image --repository-name ${REPO_NAME} --image-ids imageDigest={}
