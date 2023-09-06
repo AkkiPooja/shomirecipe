@@ -8,6 +8,7 @@ phases:
       - echo Checks if the ECR exists and creaqted accordingly
       - aws ecr describe-repositories --repository-names ${REPO_NAME} || aws ecr create-repository --repository-name ${REPO_NAME}
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - docker login -u ${DUNAME} -p ${DPASSWORD}
   build:
     commands:
       - echo Build started on `date`
